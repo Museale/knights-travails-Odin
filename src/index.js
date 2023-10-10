@@ -22,7 +22,6 @@ const createNode = (position) => {
 };
 
 const knightMoves = (start, goal) => {
-
   const gameboard = createGameboard();
 
   const startIndex = gameboard.findIndex(
@@ -54,6 +53,7 @@ const knightMoves = (start, goal) => {
           surroundingPositions.push([newX, newY]);
         }
       }
+
       return surroundingPositions;
     };
 
@@ -64,7 +64,6 @@ const knightMoves = (start, goal) => {
       const root = createNode(array[mid]);
 
       root.around = moves(root);
-     
 
       root.left = buildTree(array, start, mid - 1);
       root.right = buildTree(array, mid + 1, end);
@@ -74,49 +73,55 @@ const knightMoves = (start, goal) => {
 
     const board = buildTree(gameboard);
 
-    const findNode = (nodeToBeFound, node) => {
-      if (node === null) {
-        console.log('Node not present in tree.');
-        return false;
-      }
-      let found = false;
-      //If values are equal return true
-      if (nodeToBeFound === node.data) {
-        console.log(`Node with value ${node.data} is present in tree: `, node);
-        return true;
-      }
-      //traverse recursively through tree
-      if (nodeToBeFound > node.data) {
-        found = findNode(nodeToBeFound, node.right);
-      } else if (nodeToBeFound < node.data) {
-        found = findNode(nodeToBeFound, node.left);
-      }
-      return found;
-    };
+    // const findNode = (nodeToBeFound, node) => {
+    //   if (node === null) {
+    //     console.log('Node not present in tree.');
+    //     return false;
+    //   }
+    //   let found = false;
+    //   //If values are equal return true
+    //   console.log(nodeToBeFound, node);
+    //   if (nodeToBeFound == node.data) {
+    //     console.log(`Node with value ${node.data} is present in tree: `, node);
+    //     found = true;
+    //   }
+    //   //traverse recursively through tree
+    //   if (nodeToBeFound > node.data) {
+    //     found = findNode(nodeToBeFound, node.right);
+    //   } else if (nodeToBeFound < node.data) {
+    //     found = findNode(nodeToBeFound, node.left);
+    //   }
+    //   return found;
+    // };
+    // console.log(goal);
+    // console.log(findNode(goal, board));
 
     const traverse = (node) => {
       if (node === null) return;
-
+      node.around.forEach(el => {
+        console.log(el);
+      })
       traverse(node.left);
-
-      console.log([node.y, node.x], node.around);
-
       traverse(node.right);
     };
 
     console.log(start);
     prettyPrint(board);
     traverse(board);
+    
+    const findPath = () => {
+      //make an array of  [start, move, move, move, move, move, move, move, move];
+      //all arrays start with start + first move
+      //
+    };
 
     return board;
-
   };
 
 
+
   const tree = createTree(gameboard);
-    
+
 };
-
-
 
 knightMoves([3, 7], [5, 2]);
