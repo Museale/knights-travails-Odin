@@ -96,10 +96,15 @@ const knightMoves = (start, goal) => {
     // console.log(goal);
     // console.log(findNode(goal, board));
 
-    const traverse = (node) => {
+    const traverse = (node, goal) => {
       if (node === null) return;
       node.around.forEach(el => {
-        console.log(el);
+       if (el == goal) {
+        const path = [start, goal];
+        console.log('Path taken', path)
+        return path;
+       }
+
       })
       traverse(node.left);
       traverse(node.right);
@@ -107,14 +112,16 @@ const knightMoves = (start, goal) => {
 
     console.log(start);
     prettyPrint(board);
-    traverse(board);
     
-    const findPath = () => {
+    const findPath = (node, goal) => {
+ 
+      traverse(node, goal);
+
       //make an array of  [start, move, move, move, move, move, move, move, move];
       //all arrays start with start + first move
       //
     };
-
+    findPath(board, goal)
     return board;
   };
 
@@ -124,4 +131,4 @@ const knightMoves = (start, goal) => {
 
 };
 
-knightMoves([3, 7], [5, 2]);
+knightMoves([0,0], [1, 2]);
