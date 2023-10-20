@@ -1,4 +1,4 @@
-import { prettyPrint } from '../_prettyprint';
+import { prettyPrint } from "../_prettyprint";
 const createGameboard = () => {
   const gameboard = [];
 
@@ -21,53 +21,56 @@ const createNode = (position) => {
 };
 
 const knightMoves = (start, goal) => {
-//rewrite func using graph datastructure
+  //rewrite func using graph datastructure
 
-//create node from gameboard arr
-// give each node edges (up to 8  possible moves)
-// implement bfs 
+  //create node from gameboard arr
+  // give each node edges (up to 8  possible moves)
+  // implement bfs
 
-const graph = [
-  
-];
+  const graph = {};
 
-const possibleMoves = [
-  [-2, -1],
-  [-2, 1],
-  [-1, -2],
-  [-1, 2],
-  [1, -2],
-  [1, 2],
-  [2, -1],
-  [2, 1],
-];
+  const possibleMoves = [
+    [-2, -1],
+    [-2, 1],
+    [-1, -2],
+    [-1, 2],
+    [1, -2],
+    [1, 2],
+    [2, -1],
+    [2, 1],
+  ];
 
-const addEdge = (graph, node, targetNode) => {
-  if (!graph.contains(node)) {
+  const addEdge = (graph, node, moves) => {
+    if(!graph[node]){
     graph[node] = [];
-    graph[node].append(targetNode);
   }
-};
+    graph[node].push(...moves);
+  };
 
+  function nodeToString(node) {
+    return `${node.x},${node.y}`;
+  }
 
-const gameboard = createGameboard();
+  const gameboard = createGameboard();
 
-  gameboard.forEach(element => {
+  gameboard.forEach((element) => {
     const node = createNode(element);
-    //   for (const [dx, dy] of possibleMoves) {
-    //     const newX = node.x + dx;
-    //     const newY = node.y + dy;
+    const validMoves = [];
 
-    //     if (newX >= 0 && newY >= 0 && newX < 8 && newY < 8) {
-    //       node.addEdge([newX, newY]);
-    //     }
-    // }
-    graph.push(node);
+    for (const [dx, dy] of possibleMoves) {
+      const newX = node.x + dx;
+      const newY = node.y + dy;
+
+      if (newX >= 0 && newY >= 0 && newX < 8 && newY < 8) {
+        validMoves.push([newX, newY])
+      }
+    }
+
+    return graph[nodeToString(node)] = validMoves;
+  
   });
 
-    
-
-console.log(graph)
+  console.log(graph);
 
   const startIndex = gameboard.findIndex(
     (pos) => pos[0] === start[0] && pos[1] === start[1],
@@ -79,9 +82,6 @@ console.log(graph)
   // const createTree = (start) => {
   //   const moves = (node) => {
   //     const surroundingPositions = [];
-
-
-
 
   //   const buildTree = (array, startOfArr = 0, end = array.length - 1) => {
   //     if (startOfArr > end) return null;
@@ -138,9 +138,9 @@ console.log(graph)
 
   //   console.log(start, 'start');
   //   prettyPrint(board);
-    
+
   //   const findPath = (node, goal) => {
- 
+
   //     traverse(node, goal);
 
   //     //make an array of  [start, move, move, move, move, move, move, move, move];
@@ -153,7 +153,6 @@ console.log(graph)
 
   // const tree = createTree(gameboard);
 
-  // rewrite 
-
-  }
-knightMoves([0,0], [1, 2]);
+  // rewrite
+};
+knightMoves([0, 0], [1, 2]);
