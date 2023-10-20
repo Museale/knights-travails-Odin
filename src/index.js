@@ -20,7 +20,6 @@ const createNode = (position) => {
 };
 
 const knightMoves = (start, goal) => {
-
   const graph = {};
 
   const possibleMoves = [
@@ -66,7 +65,7 @@ const knightMoves = (start, goal) => {
     visited[start] = true;
 
     while (queue.length) {
-      //dequeue currvertx 
+      //dequeue currvertx
       const currentVertex = queue.shift();
       //check if goal === currvertx
       if (currentVertex[0] === goal[0] && currentVertex[1] === goal[1]) {
